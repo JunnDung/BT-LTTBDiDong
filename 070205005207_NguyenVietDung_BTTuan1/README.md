@@ -11,17 +11,17 @@ Bài tập tuần 1 môn Lập trình thiết bị di động
 - Hệ sinh thái ứng dụng mở rộng: Các nền tảng như Android và iOS không ngừng cải tiến, cung cấp nhiều công cụ hỗ trợ lập trình viên phát triển ứng dụng nhanh và hiệu quả hơn.
 3. Viết một ứng dụng có UI như hình và đẩy lên GitHub
 - Mô tả bài tập:
--Tạo một màn hình profile đơn giản sử dụng Jetpack Compose
--Gồm các thành phần: header với nút back/edit, ảnh đại diện, tên và địa chỉ
-Tất cả được căn giữa và có layout hợp lý
-Mục tiêu:
-Học cách sử dụng Jetpack Compose để tạo UI
-Thực hành layout với Box, Column, Row
-Hiểu cách sắp xếp các thành phần UI
-Kết quả đạt được:
-Tạo được UI giống mẫu
-Code sạch, có cấu trúc
-Giải thích các hàm chính:
+ - Tạo một màn hình profile đơn giản sử dụng Jetpack Compose
+ - Gồm các thành phần: header với nút back/edit, ảnh đại diện, tên và địa chỉ
+ - Tất cả được căn giữa và có layout hợp lý
+- Mục tiêu:
+ - Học cách sử dụng Jetpack Compose để tạo UI
+ - Thực hành layout với Box, Column, Row
+ - Hiểu cách sắp xếp các thành phần UI
+- Kết quả đạt được:
+ - Tạo được UI giống mẫu
+ - Code sạch, có cấu trúc
+- Giải thích các hàm chính:
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Hàm khởi tạo activity, setup content với Compose
