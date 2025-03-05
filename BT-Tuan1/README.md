@@ -10,3 +10,50 @@ Em tin rằng lập trình di động sẽ tiếp tục phát triển mạnh tro
 - Công nghệ mới ra đời: Các công nghệ như AI, IoT, AR/VR sẽ tích hợp sâu hơn vào ứng dụng di động, mở ra nhiều cơ hội mới.
 - Hệ sinh thái ứng dụng mở rộng: Các nền tảng như Android và iOS không ngừng cải tiến, cung cấp nhiều công cụ hỗ trợ lập trình viên phát triển ứng dụng nhanh và hiệu quả hơn.
 3. Viết một ứng dụng có UI như hình và đẩy lên GitHub
+Mô tả bài tập:
+Tạo một màn hình profile đơn giản sử dụng Jetpack Compose
+Gồm các thành phần: header với nút back/edit, ảnh đại diện, tên và địa chỉ
+Tất cả được căn giữa và có layout hợp lý
+Mục tiêu:
+Học cách sử dụng Jetpack Compose để tạo UI
+Thực hành layout với Box, Column, Row
+Hiểu cách sắp xếp các thành phần UI
+Kết quả đạt được:
+Tạo được UI giống mẫu
+Code sạch, có cấu trúc
+Giải thích các hàm chính:
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Hàm khởi tạo activity, setup content với Compose
+    }
+}
+
+@Composable
+fun ProfileScreen(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
+        // Box: Container chính, cho phép xếp chồng các phần tử
+        // Header (Row): Chứa 2 icon ở trên cùng
+        // Content chính (Column): Chứa avatar, tên và địa chỉ
+    }
+}
+
+// Các thành phần UI chính:
+Row {
+    // Sắp xếp các phần tử theo chiều ngang
+    // horizontalArrangement = Arrangement.SpaceBetween: Tạo khoảng cách giữa các phần tử
+}
+
+Column {
+    // Sắp xếp các phần tử theo chiều dọc
+    // horizontalAlignment = Alignment.CenterHorizontally: Căn giữa theo chiều ngang
+    // verticalArrangement = Arrangement.Center: Căn giữa theo chiều dọc
+}
+
+Image {
+    // Hiển thị ảnh đại diện
+    // modifier = Modifier.clip(CircleShape): Cắt ảnh thành hình tròn
+}
+
+Text {
+    // Hiển thị text với style từ MaterialTheme
+}
