@@ -26,7 +26,6 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -176,7 +175,6 @@ fun WelcomeScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComponentsListScreen(navController: NavController) {
     Scaffold(
@@ -306,7 +304,6 @@ fun ComponentItem(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextDetailScreen(navController: NavController) {
     Scaffold(
@@ -409,7 +406,6 @@ fun TextDetailScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ImageDetailScreen(navController: NavController) {
     Scaffold(
@@ -451,7 +447,6 @@ fun ImageDetailScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextFieldDetailScreen(navController: NavController) {
     var text by remember { mutableStateOf("") }
@@ -505,7 +500,6 @@ fun TextFieldDetailScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordFieldDetailScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
@@ -585,7 +579,6 @@ fun getPasswordStrength(password: String): String {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ColumnDetailScreen(navController: NavController) {
     Scaffold(
@@ -659,7 +652,6 @@ fun ColumnDetailScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RowDetailScreen(navController: NavController) {
     Scaffold(
