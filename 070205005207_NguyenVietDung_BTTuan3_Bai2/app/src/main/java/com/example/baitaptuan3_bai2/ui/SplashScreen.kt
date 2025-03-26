@@ -36,22 +36,7 @@ import com.example.baitaptuan3_bai2.R
 import com.example.baitaptuan3_bai2.ui.theme.BaiTapTuan3_Bai2Theme
 
 @Composable
-fun SplashScreen(onNavigateToMain: () -> Unit = {}) {
-    val uthBlueColor = Color(0xFF006EE9)
-
-    val alpha = remember { Animatable(0f) }
-    
-    LaunchedEffect(key1 = true) {
-        alpha.animateTo(
-            targetValue = 1f,
-            animationSpec = tween(durationMillis = 1000)
-        )
-
-        delay(1000)
-
-        onNavigateToMain()
-    }
-    
+fun SplashScreen(onNavigateToMain: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -61,34 +46,34 @@ fun SplashScreen(onNavigateToMain: () -> Unit = {}) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .alpha(alpha.value)
-                .padding(16.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.uth_logo),
-                contentDescription = "UTH Logo",
-                modifier = Modifier.size(100.dp)
+                contentDescription = "App Logo",
+                modifier = Modifier.size(120.dp)
             )
             
-            Spacer(modifier = Modifier.height(30.dp))
-
             Text(
-                text = "UTH SmartTasks",
-                color = uthBlueColor,
+                text = "SmartTasks",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                color = Color(0xFF2196F3),
+                modifier = Modifier.padding(top = 16.dp)
             )
             
-            Spacer(modifier = Modifier.height(40.dp))
-            
-            CircularProgressIndicator(
-                modifier = Modifier.size(40.dp),
-                color = uthBlueColor,
-                strokeWidth = 4.dp
+            Text(
+                text = "A simple and efficient to-do app",
+                fontSize = 16.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
+    }
+    
+    LaunchedEffect(Unit) {
+        delay(2000)
+        onNavigateToMain()
     }
 }
 
@@ -96,6 +81,6 @@ fun SplashScreen(onNavigateToMain: () -> Unit = {}) {
 @Composable
 fun SplashScreenPreview() {
     BaiTapTuan3_Bai2Theme {
-        SplashScreen()
+        SplashScreen(onNavigateToMain = {})
     }
 } 

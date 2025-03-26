@@ -43,8 +43,8 @@ import com.example.baitaptuan3_bai2.ui.theme.BaiTapTuan3_Bai2Theme
 
 @Composable
 fun OnboardingScreen(
-    onNextClick: () -> Unit = {},
-    onSkipClick: () -> Unit = {}
+    onNextClick: () -> Unit,
+    onSkipClick: () -> Unit
 ) {
     var currentPage by remember { mutableStateOf(0) }
     val totalPages = 3
@@ -65,7 +65,6 @@ fun OnboardingScreen(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Dots
                 for (i in 0 until totalPages) {
                     Box(
                         modifier = Modifier
@@ -85,7 +84,7 @@ fun OnboardingScreen(
                 modifier = Modifier.padding(0.dp)
             ) {
                 Text(
-                    text = "skip",
+                    text = "Skip",
                     color = primaryBlue,
                     fontSize = 16.sp
                 )
@@ -341,6 +340,9 @@ fun OnboardingPage3(
 @Composable
 fun OnboardingScreenPreview() {
     BaiTapTuan3_Bai2Theme {
-        OnboardingScreen()
+        OnboardingScreen(
+            onNextClick = {},
+            onSkipClick = {}
+        )
     }
 }
