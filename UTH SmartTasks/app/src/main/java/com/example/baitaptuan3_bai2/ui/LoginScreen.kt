@@ -15,9 +15,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,12 +33,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.baitaptuan3_bai2.R
+import com.example.baitaptuan3_bai2.auth.AuthViewModel
 
 @Composable
 fun LoginScreen(
+    authViewModel: AuthViewModel,
+    onGoogleSignIn: () -> Unit,
     onLoginSuccess: () -> Unit,
     onProfileClick: () -> Unit
 ) {
+    val currentUser by authViewModel.currentUser.collectAsState()
+    val isLoading by authViewModel.isLoading.collectAsState()
+    val authError by authViewModel.authError.collectAsState()
+    
+    // Kiểm tra nếu người dùng đã đăng nhập thì chuyển đến màn hình chính
+    LaunchedEffect(currentUser) {
+        if (currentUser != null) {
+            onLoginSuccess()
+        }
+    }
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -105,33 +123,53 @@ fun LoginScreen(
                 textAlign = TextAlign.Center
             )
             
+            // Hiển thị lỗi nếu có
+            if (authError != null) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = authError!!,
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center
+                )
+            }
+            
             Spacer(modifier = Modifier.height(24.dp))
             
             Button(
-                onClick = { onProfileClick() },
+                onClick = { onGoogleSignIn() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFE3F2FD)
                 ),
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(8.dp),
+                enabled = !isLoading
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.google),
-                        contentDescription = "Google Logo",
-                        modifier = Modifier.size(24.dp)
-                    )
-                    
-                    Text(
-                        text = "SIGN IN WITH GOOGLE",
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
                         color = Color(0xFF1A237E),
-                        fontWeight = FontWeight.Bold
+                        strokeWidth = 2.dp
                     )
+                } else {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.google),
+                            contentDescription = "Google Logo",
+                            modifier = Modifier.size(24.dp)
+                        )
+                        
+                        Text(
+                            text = "SIGN IN WITH GOOGLE",
+                            color = Color(0xFF1A237E),
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
             

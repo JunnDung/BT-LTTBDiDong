@@ -1,14 +1,18 @@
 package com.example.baitaptuan3_bai2
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.baitaptuan3_bai2.auth.AuthViewModel
 import com.example.baitaptuan3_bai2.ui.AddTaskScreen
 import com.example.baitaptuan3_bai2.ui.DetailScreen
 import com.example.baitaptuan3_bai2.ui.LoginScreen
@@ -19,11 +23,29 @@ import com.example.baitaptuan3_bai2.ui.TaskListScreen
 import com.example.baitaptuan3_bai2.ui.TodoScreen
 import com.example.baitaptuan3_bai2.ui.theme.BaiTapTuan3_Bai2Theme
 import com.example.baitaptuan3_bai2.viewmodel.TaskViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    
+    private lateinit var authViewModel: AuthViewModel
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        authViewModel.handleSignInResult(result.data)
+    }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        
+        authViewModel = androidx.lifecycle.ViewModelProvider(this).get(AuthViewModel::class.java)
+        
+        lifecycleScope.launch {
+            authViewModel.currentUser.collectLatest { user ->
+                // Có thể xử lý logic dựa trên trạng thái người dùng nếu cần
+            }
+        }
         
         setContent {
             BaiTapTuan3_Bai2Theme {
@@ -52,6 +74,11 @@ class MainActivity : ComponentActivity() {
                     }
                     Screen.Login -> {
                         LoginScreen(
+                            authViewModel = authViewModel,
+                            onGoogleSignIn = {
+                                val signInIntent = authViewModel.getGoogleSignInClient(this@MainActivity).signInIntent
+                                googleSignInLauncher.launch(signInIntent)
+                            },
                             onLoginSuccess = {
                                 currentScreen = Screen.Main
                             },
