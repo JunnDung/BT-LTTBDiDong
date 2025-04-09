@@ -50,7 +50,9 @@ import java.util.Calendar
 
 @Composable
 fun TodoScreen(
-    onTaskClick: (title: String, description: String, color: Long) -> Unit = { _, _, _ -> }
+    onTaskClick: (title: String, description: String, color: Long) -> Unit = { _, _, _ -> },
+    onTaskButtonClick: () -> Unit = {},
+    onAddTaskClick: () -> Unit = {}
 ) {
     val primaryBlue = Color(0xFF2196F3)
     
@@ -62,7 +64,7 @@ fun TodoScreen(
     ) {
         Scaffold(
             bottomBar = {
-                BottomNavigationBar()
+                BottomNavigationBar(onTaskButtonClick = onTaskButtonClick)
             }
         ) { paddingValues ->
             Column(
@@ -116,7 +118,7 @@ fun TodoScreen(
         }
         
         FloatingActionButton(
-            onClick = { /* TODO: Implement add task */ },
+            onClick = { onAddTaskClick() },
             containerColor = primaryBlue,
             shape = CircleShape,
             modifier = Modifier
@@ -339,7 +341,9 @@ fun EmptyTaskScreen() {
 }
 
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(
+    onTaskButtonClick: () -> Unit = {}
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -362,7 +366,7 @@ fun BottomNavigationBar() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .clickable { /* TODO: Navigate */ }
+                    .clickable { }
                     .padding(horizontal = 8.dp)
             ) {
                 Text(
@@ -384,7 +388,7 @@ fun BottomNavigationBar() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .clickable { /* TODO: Navigate */ }
+                    .clickable { }
                     .padding(horizontal = 8.dp)
             ) {
                 Text(
@@ -408,7 +412,7 @@ fun BottomNavigationBar() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .clickable { /* TODO: Navigate */ }
+                    .clickable { onTaskButtonClick() }
                     .padding(horizontal = 8.dp)
             ) {
                 Text(
@@ -430,7 +434,7 @@ fun BottomNavigationBar() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .clickable { /* TODO: Navigate */ }
+                    .clickable { }
                     .padding(horizontal = 8.dp)
             ) {
                 Text(
