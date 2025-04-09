@@ -47,7 +47,8 @@ fun TaskListScreen(
     viewModel: TaskViewModel,
     onAddNewTask: () -> Unit,
     onBackClick: () -> Unit,
-    onHomeClick: () -> Unit = {}
+    onHomeClick: () -> Unit = {},
+    onTaskClick: (title: String, description: String, color: Long) -> Unit = { _, _, _ -> }
 ) {
     val primaryBlue = Color(0xFF2196F3)
     
@@ -127,7 +128,10 @@ fun TaskListScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(viewModel.tasks) { task ->
-                        TaskItem(task = task)
+                        TaskItem(
+                            task = task,
+                            onClick = { onTaskClick(task.title, task.description, task.color) }
+                        )
                     }
                 }
             }
@@ -153,11 +157,15 @@ fun TaskListScreen(
 }
 
 @Composable
-fun TaskItem(task: Task) {
+fun TaskItem(
+    task: Task,
+    onClick: () -> Unit = {}
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 4.dp)
+            .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(containerColor = Color(task.color)),
         shape = RoundedCornerShape(8.dp)

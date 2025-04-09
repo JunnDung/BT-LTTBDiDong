@@ -96,8 +96,11 @@ class MainActivity : ComponentActivity() {
                     }
                     Screen.Main -> {
                         TodoScreen(
-                            onTaskClick = { _, _, _ ->
-                                currentScreen = Screen.TaskList
+                            onTaskClick = { title, description, color ->
+                                selectedTaskTitle = title
+                                selectedTaskDescription = description
+                                selectedTaskColor = color
+                                currentScreen = Screen.Detail
                             },
                             onTaskButtonClick = {
                                 currentScreen = Screen.TaskList
@@ -128,6 +131,12 @@ class MainActivity : ComponentActivity() {
                             },
                             onHomeClick = {
                                 currentScreen = Screen.Main
+                            },
+                            onTaskClick = { title, description, color ->
+                                selectedTaskTitle = title
+                                selectedTaskDescription = description
+                                selectedTaskColor = color
+                                currentScreen = Screen.Detail
                             }
                         )
                     }

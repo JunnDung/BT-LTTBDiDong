@@ -131,7 +131,7 @@ fun DetailScreen(
                 .padding(top = 8.dp, bottom = 16.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFE8BFC9)
+                containerColor = Color(cardColor)
             ),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 0.dp
